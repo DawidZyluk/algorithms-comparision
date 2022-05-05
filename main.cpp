@@ -7,15 +7,16 @@ void SelectionSort(int* A, int n);
 void BubbleSort(int* A, int n);
 void BinaryInsertionSort(int* A, int n);
 void InsertionSort(int* A, int n);
-void Merge(int* A, int l, int mid, int h);
+void Merge(int* A, int low, int mid, int high);
 void IterativeMergeSort(int* A, int n);
+void RecursiveMergeSort(int* A, int low, int high);
 
 int main()
 {
-	int A[] = { 2,5,8,12,3,6,7,10 };
+	int A[] = { 8,7,6,5,4,3,2,1 };
 	int n = size(A);
 
-	IterativeMergeSort(A,n);
+	RecursiveMergeSort(A,0,7);
 	//Merge(A, 0,3,7);
 	//Display(A, n);
 }
@@ -112,7 +113,6 @@ void Merge(int* A, int low, int mid, int high)
 
 void IterativeMergeSort(int* A, int n)
 {
-	Display(A, n);
 	int p;
 	for (p = 2; p <= n; p *= 2)
 	{
@@ -123,7 +123,18 @@ void IterativeMergeSort(int* A, int n)
 			int mid = (low + high) / 2;
 			Merge(A, low, mid, high);
 		}
-		Display(A, n);
 	}
 	if (p / 2 < n) Merge(A, 0, p / 2 - 1, n - 1);
+}
+
+void RecursiveMergeSort(int* A, int low, int high)
+{
+	if (low < high)
+	{
+		int mid = low + (high - low) / 2;
+		RecursiveMergeSort(A, low, mid);
+		RecursiveMergeSort(A, mid+1, high);
+
+		Merge(A, low, mid, high);
+	}
 }
