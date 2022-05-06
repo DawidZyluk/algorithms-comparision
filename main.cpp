@@ -1,4 +1,5 @@
 #include <iostream>
+#include <time.h>
 
 using namespace std;
 
@@ -17,17 +18,26 @@ void QuickSort(int* A, int low, int high);
 int* RandomArray(int n);
 int* AscendingArray(int n);
 int* DescendingArray(int n);
-
-// TODO: 
-// Funkcja do tworzenia tablicy losowej, min->max i max->min
-// Add RandomArray()
+int* CopyArray(int* A, int n);
 
 int main()
-{
-	int n = 100;
-	int* A = AscendingArray(n);
-	
-	Display(A, n);
+{	
+	int n = 30;
+	int* originalRandomArray = RandomArray(n);
+	int* ascendingArray = AscendingArray(n);
+	int* descendingArray = DescendingArray(n);
+
+	Display(originalRandomArray, n);
+	int* coppiedRandom = CopyArray(originalRandomArray, n);
+	Display(coppiedRandom, n);
+	QuickSort(coppiedRandom, 0, n - 1);
+	Display(coppiedRandom, n);
+
+	// Time measurement
+	/*clock_t start = clock();
+	clock_t end = clock();
+	double executionTime = double(end - start) / CLOCKS_PER_SEC;
+	cout << "Time: " << executionTime<<"s";*/
 }
 
 void Display(int* A, int n)
@@ -169,7 +179,6 @@ int Partition(int* A, int low, int high)
 		while (A[j] >= pivot && j >= i) j--;
 		if (j < i) break;
 		else Swap(A[i], A[j]);
-		Display(A, high + 1);
 	}
 	Swap(A[low], A[j]);
 	return j;
@@ -207,4 +216,12 @@ int* DescendingArray(int n)
 	for (int i = 0; i < n; i++) arr[i] = n - i;
 
 	return arr;
+}
+
+int* CopyArray(int* A, int n)
+{
+	int* res = new int[n];
+	for (int i = 0; i < n; i++) res[i] = A[i];
+
+	return res;
 }
