@@ -14,13 +14,19 @@ void IterativeMergeSort(int* A, int n);
 void RecursiveMergeSort(int* A, int low, int high);
 int Partition(int* A, int low, int high);
 void QuickSort(int* A, int low, int high);
+int* RandomArray(int n);
+int* AscendingArray(int n);
+int* DescendingArray(int n);
+
+// TODO: 
+// Funkcja do tworzenia tablicy losowej, min->max i max->min
+// Add RandomArray()
 
 int main()
 {
-	int A[] = { 5,9,1,8,2,7,3,6,4 };
-	int n = size(A);
-
-	Partition(A, 0, 8);
+	int n = 100;
+	int* A = AscendingArray(n);
+	
 	Display(A, n);
 }
 
@@ -177,4 +183,28 @@ void QuickSort(int* A, int low, int high)
 		QuickSort(A, low, p - 1);
 		QuickSort(A, p + 1, high);
 	}
+}
+
+int* RandomArray(int n)
+{
+	int* arr = new int[n];
+	for (int i = 0; i < n; i++) arr[i] = (rand() % 100);
+
+	return arr;
+}
+
+int* AscendingArray(int n)
+{
+	int* arr = new int[n];
+	for (int i = 0; i < n; i++) arr[i] = i+1;
+
+	return arr;
+}
+
+int* DescendingArray(int n)
+{
+	int* arr = new int[n];
+	for (int i = 0; i < n; i++) arr[i] = n - i;
+
+	return arr;
 }
