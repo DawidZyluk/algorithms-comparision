@@ -3,8 +3,10 @@
 using namespace std;
 
 void Display(int* A, int n);
+void Swap(int& x, int& y);
 void SelectionSort(int* A, int n);
 void BubbleSort(int* A, int n);
+void OptimizedBubbleSort(int* A, int n);
 void BinaryInsertionSort(int* A, int n);
 void InsertionSort(int* A, int n);
 void Merge(int* A, int low, int mid, int high);
@@ -13,12 +15,10 @@ void RecursiveMergeSort(int* A, int low, int high);
 
 int main()
 {
-	int A[] = { 8,7,6,5,4,3,2,1 };
+	int A[] = { 0,1,2,3,4,5,6,7,8 };
 	int n = size(A);
-
-	RecursiveMergeSort(A,0,7);
-	//Merge(A, 0,3,7);
-	//Display(A, n);
+	SelectionSort(A, n);
+	Display(A, n);
 }
 
 void Display(int* A, int n)
@@ -32,6 +32,13 @@ void Display(int* A, int n)
 	cout << " ]" << endl;
 }
 
+void Swap(int& x, int& y)
+{
+	int temp = x;
+	x = y;
+	y = temp;
+}
+
 void SelectionSort(int* A, int n)
 {
 	for (int i = 0; i < n - 1; i++)
@@ -39,26 +46,30 @@ void SelectionSort(int* A, int n)
 		int min = i;
 		for (int j = i + 1; j < n; j++)
 			if (A[j] < A[min]) min = j;
-		int temp = A[i];
-		A[i] = A[min];
-		A[min] = temp;
+		Swap(A[i], A[min]);
 	}
 }
 
 void BubbleSort(int* A, int n)
 {
 	for (int i = 0; i < n - 1; i++)
+		for (int j = 0; j < n - i - 1; j++)
+			if (A[j] > A[j + 1]) Swap(A[j], A[j + 1]);
+}
+
+void OptimizedBubbleSort(int* A, int n)
+{
+	for (int i = 0; i < n - 1; i++)
 	{
-		for (int j = i + 1; j < n; j++)
-		{
-			if (A[i] > A[j])
+		bool swaped = false;
+		for (int j = 0; j < n - i - 1; j++)
+			if (A[j] > A[j + 1])
 			{
-				int temp = A[i];
-				A[i] = A[j];
-				A[j] = temp;
+				Swap(A[j], A[j + 1]);
+				swaped = true;
 			}
-		}
-	}
+		if (swaped == false) break;
+	}		
 }
 
 void BinaryInsertionSort(int* A, int n)
@@ -99,7 +110,6 @@ void Merge(int* A, int low, int mid, int high)
 	int i = low;
 	int j = mid + 1;
 	int k = low;
-	int newSize = (high - low) + 1;
 	int* B = new int[high+1];
 	while (i <= mid && j <= high)
 	{
@@ -134,7 +144,6 @@ void RecursiveMergeSort(int* A, int low, int high)
 		int mid = low + (high - low) / 2;
 		RecursiveMergeSort(A, low, mid);
 		RecursiveMergeSort(A, mid+1, high);
-
 		Merge(A, low, mid, high);
 	}
 }
