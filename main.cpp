@@ -1,5 +1,6 @@
 #include <iostream>
 #include <time.h>
+#include <fstream>
 
 using namespace std;
 
@@ -15,29 +16,64 @@ void IterativeMergeSort(int* A, int n);
 void RecursiveMergeSort(int* A, int low, int high);
 int Partition(int* A, int low, int high);
 void QuickSort(int* A, int low, int high);
-int* RandomArray(int n);
-int* AscendingArray(int n);
-int* DescendingArray(int n);
+int* RandomArrayGenerator(int n);
+int* AscendingArrayGenerator(int n);
+int* DescendingArrayGenerator(int n);
 int* CopyArray(int* A, int n);
 
 int main()
 {	
-	int n = 30;
-	int* originalRandomArray = RandomArray(n);
-	int* ascendingArray = AscendingArray(n);
-	int* descendingArray = DescendingArray(n);
 
-	Display(originalRandomArray, n);
-	int* coppiedRandom = CopyArray(originalRandomArray, n);
-	Display(coppiedRandom, n);
-	QuickSort(coppiedRandom, 0, n - 1);
-	Display(coppiedRandom, n);
+	fstream descending, ascending, random;
+	ascending.open("Ascending.txt", ios::out);
+	descending.open("Descending.txt", ios::out);
+	random.open("Random.txt", ios::out);
+	
+	for (int n = 10000; n <= 50000; n += 10000)
+	{
+		int* ascendingArray = AscendingArrayGenerator(n);
+		int* descendingArray = DescendingArrayGenerator(n);
+		int* randomArray = RandomArrayGenerator(n);
+		//int* backupRandom = CopyArray(randomArray, n);
+
+		clock_t start, end;
+		double executionTime;
+
+		cout << "*** n = " << n << " ***" << endl;
+
+		start = clock();
+		SelectionSort(ascendingArray, n);
+		end = clock();
+		executionTime = double(end - start) / CLOCKS_PER_SEC;
+		cout << "Ascending time: " << executionTime << "s" << endl;
+		ascending << executionTime << endl;
+
+		start = clock();
+		SelectionSort(descendingArray, n);
+		end = clock();
+		executionTime = double(end - start) / CLOCKS_PER_SEC;
+		cout << "Descending time: " << executionTime << "s" << endl;
+		descending << executionTime << endl;
+
+		start = clock();
+		SelectionSort(randomArray, n);
+		end = clock();
+		executionTime = double(end - start) / CLOCKS_PER_SEC;
+		cout << "Random time: " << executionTime << "s" << endl;
+		random << executionTime << endl;
+	}
+	cout << "##### END #####";
+	ascending.close();
+	descending.close();
+	random.close();
 
 	// Time measurement
-	/*clock_t start = clock();
+	/*
+	clock_t start = clock();
 	clock_t end = clock();
 	double executionTime = double(end - start) / CLOCKS_PER_SEC;
-	cout << "Time: " << executionTime<<"s";*/
+	cout << "Time: " << executionTime<<"s";
+	*/
 }
 
 void Display(int* A, int n)
@@ -194,15 +230,15 @@ void QuickSort(int* A, int low, int high)
 	}
 }
 
-int* RandomArray(int n)
+int* RandomArrayGenerator(int n)
 {
 	int* arr = new int[n];
-	for (int i = 0; i < n; i++) arr[i] = (rand() % 100);
+	for (int i = 0; i < n; i++) arr[i] = (rand() % n);
 
 	return arr;
 }
 
-int* AscendingArray(int n)
+int* AscendingArrayGenerator(int n)
 {
 	int* arr = new int[n];
 	for (int i = 0; i < n; i++) arr[i] = i+1;
@@ -210,7 +246,7 @@ int* AscendingArray(int n)
 	return arr;
 }
 
-int* DescendingArray(int n)
+int* DescendingArrayGenerator(int n)
 {
 	int* arr = new int[n];
 	for (int i = 0; i < n; i++) arr[i] = n - i;
