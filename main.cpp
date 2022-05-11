@@ -7,6 +7,7 @@ using namespace std;
 void Display(int* A, int n);
 void Swap(int& x, int& y);
 void SelectionSort(int* A, int n); 
+void SelectionSortB(int* A, int n);
 void BubbleSort(int* A, int n); 
 void OptimizedBubbleSort(int* A, int n); 
 void BinaryInsertionSort(int* A, int n); 
@@ -16,25 +17,35 @@ void IterativeMergeSort(int* A, int n);
 void RecursiveMergeSort(int* A, int low, int high);
 int Partition(int* A, int low, int high);
 void QuickSort(int* A, int low, int high);
+void OptimizedQuickSort(int* A, int low, int high);
+void EducationalQuicksort(int* A, int low, int high);
 int* RandomArrayGenerator(int n);
 int* AscendingArrayGenerator(int n);
 int* DescendingArrayGenerator(int n);
 int* CopyArray(int* A, int n);
 double Average(double* A, int n);
 
-//git commit -m"Add Average(), 
+// Pytania:
+// Swap() czy rêcznie?
+// Czy obecny sposób pokazywania wyników na bierz¹co jest satysfakcjonuj¹cy?
+// Co zrobiæ z QuickSortem?
+// Jak powinna wygl¹daæ funkcja sprawdzaj¹ca?
 
 int main()
 {	
-	fstream descending, ascending, random;
-	ascending.open("Ascending.txt", ios::out);
-	descending.open("Descending.txt", ios::out);
-	random.open("Random.txt", ios::out);
+	//fstream descending, ascending, random;
+	//ascending.open("Ascending.txt", ios::out);
+	//descending.open("Descending.txt", ios::out);
+	//random.open("Random.txt", ios::out);
+
+	//ascending.close();
+	//descending.close();
+	//random.close();
 
 	clock_t start, end;
 	double executionTime;
 
-	int n = 10000;
+	int n = 1000000;
 	int* randomArray = RandomArrayGenerator(n);
 	int* backupRandom = CopyArray(randomArray, n);
 
@@ -45,275 +56,9 @@ int main()
 	double averageDescendingTime;
 	double randomTimes[populations];
 	double averageRandomTime;
-	//
-	//// Selection Sort
-	//cout << "-------------- Selection Sort -------------\n";
-	//for (int i = 0; i < populations; i++)
-	//{
-	//	int* ascendingArray = AscendingArrayGenerator(n);
-	//	int* descendingArray = DescendingArrayGenerator(n);
-	//	int* randomArray = CopyArray(backupRandom, n);
-
-	//	start = clock();
-	//	SelectionSort(ascendingArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	ascendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	SelectionSort(descendingArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	descendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	SelectionSort(randomArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	randomTimes[i] = executionTime;
-
-	//	cout << "\r[" << i+1 << " of " << populations << " populations completed]" << flush;
-	//}
-	//averageAscendingTime = Average(ascendingTimes, populations);
-	//averageDescendingTime = Average(descendingTimes, populations);
-	//averageRandomTime = Average(randomTimes, populations);
-
-	//cout << endl << "\n  Average time taken to sort the arrays: ";
-	//cout << endl << "  for ascending numbers = " << averageAscendingTime << "s";
-	//cout << endl << "  for descending numbers = " << averageDescendingTime << "s";
-	//cout << endl << "  for random numbers = " << averageRandomTime << "s\n\n\n";
-
-
-	//// Bubble Sort
-	//cout << "--------------- Bubble Sort ---------------\n";
-	//for (int i = 0; i < populations; i++)
-	//{
-	//	int* ascendingArray = AscendingArrayGenerator(n);
-	//	int* descendingArray = DescendingArrayGenerator(n);
-	//	int* randomArray = CopyArray(backupRandom, n);
-
-	//	start = clock();
-	//	BubbleSort(ascendingArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	ascendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	BubbleSort(descendingArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	descendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	BubbleSort(randomArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	randomTimes[i] = executionTime;
-
-	//	cout << "\r[" << i + 1 << " of " << populations << " populations completed]" << flush;
-	//}
-
-	//averageAscendingTime = Average(ascendingTimes, populations);
-	//averageDescendingTime = Average(descendingTimes, populations);
-	//averageRandomTime = Average(randomTimes, populations);
-
-	//cout << endl << "\n  Average time taken to sort the arrays: ";
-	//cout << endl << "  for ascending numbers = " << averageAscendingTime << "s";
-	//cout << endl << "  for descending numbers = " << averageDescendingTime << "s";
-	//cout << endl << "  for random numbers = " << averageRandomTime << "s\n\n\n";
-
-	//// Optimized Bubble Sort
-	//cout << "---------- Optimized Bubble Sort ----------\n";
-	//for (int i = 0; i < populations; i++)
-	//{
-	//	int* ascendingArray = AscendingArrayGenerator(n);
-	//	int* descendingArray = DescendingArrayGenerator(n);
-	//	int* randomArray = CopyArray(backupRandom, n);
-
-	//	start = clock();
-	//	OptimizedBubbleSort(ascendingArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	ascendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	OptimizedBubbleSort(descendingArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	descendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	OptimizedBubbleSort(randomArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	randomTimes[i] = executionTime;
-
-	//	cout << "\r[" << i + 1 << " of " << populations << " populations completed]" << flush;
-	//}
-
-	//averageAscendingTime = Average(ascendingTimes, populations);
-	//averageDescendingTime = Average(descendingTimes, populations);
-	//averageRandomTime = Average(randomTimes, populations);
-
-	//cout << endl << "\n  Average time taken to sort the arrays: ";
-	//cout << endl << "  for ascending numbers = " << averageAscendingTime << "s";
-	//cout << endl << "  for descending numbers = " << averageDescendingTime << "s";
-	//cout << endl << "  for random numbers = " << averageRandomTime << "s\n\n\n";
-
-	//// BinaryInsertionSort
-	//cout << "---------- Binary Insertion Sort ----------\n";
-	//for (int i = 0; i < populations; i++)
-	//{
-	//	int* ascendingArray = AscendingArrayGenerator(n);
-	//	int* descendingArray = DescendingArrayGenerator(n);
-	//	int* randomArray = CopyArray(backupRandom, n);
-
-	//	start = clock();
-	//	BinaryInsertionSort(ascendingArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	ascendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	BinaryInsertionSort(descendingArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	descendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	BinaryInsertionSort(randomArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	randomTimes[i] = executionTime;
-
-	//	cout << "\r[" << i + 1 << " of " << populations << " populations completed]" << flush;
-	//}
-
-	//averageAscendingTime = Average(ascendingTimes, populations);
-	//averageDescendingTime = Average(descendingTimes, populations);
-	//averageRandomTime = Average(randomTimes, populations);
-
-	//cout << endl << "\n  Average time taken to sort the arrays: ";
-	//cout << endl << "  for ascending numbers = " << averageAscendingTime << "s";
-	//cout << endl << "  for descending numbers = " << averageDescendingTime << "s";
-	//cout << endl << "  for random numbers = " << averageRandomTime << "s\n\n\n";
-
-	//// InsertionSort
-	//cout << "---------- Insertion Sort ----------\n";
-	//for (int i = 0; i < populations; i++)
-	//{
-	//	int* ascendingArray = AscendingArrayGenerator(n);
-	//	int* descendingArray = DescendingArrayGenerator(n);
-	//	int* randomArray = CopyArray(backupRandom, n);
-
-	//	start = clock();
-	//	InsertionSort(ascendingArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	ascendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	InsertionSort(descendingArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	descendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	InsertionSort(randomArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	randomTimes[i] = executionTime;
-
-	//	cout << "\r[" << i + 1 << " of " << populations << " populations completed]" << flush;
-	//}
-
-	//averageAscendingTime = Average(ascendingTimes, populations);
-	//averageDescendingTime = Average(descendingTimes, populations);
-	//averageRandomTime = Average(randomTimes, populations);
-
-	//cout << endl << "\n  Average time taken to sort the arrays: ";
-	//cout << endl << "  for ascending numbers = " << averageAscendingTime << "s";
-	//cout << endl << "  for descending numbers = " << averageDescendingTime << "s";
-	//cout << endl << "  for random numbers = " << averageRandomTime << "s\n\n\n";
-
-	//// IterativeMergeSort
-	//cout << "---------- Iterative Merge Sort ----------\n";
-	//for (int i = 0; i < populations; i++)
-	//{
-	//	int* ascendingArray = AscendingArrayGenerator(n);
-	//	int* descendingArray = DescendingArrayGenerator(n);
-	//	int* randomArray = CopyArray(backupRandom, n);
-
-	//	start = clock();
-	//	IterativeMergeSort(ascendingArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	ascendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	IterativeMergeSort(descendingArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	descendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	IterativeMergeSort(randomArray, n);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	randomTimes[i] = executionTime;
-
-	//	cout << "\r[" << i + 1 << " of " << populations << " populations completed]" << flush;
-	//}
-
-	//averageAscendingTime = Average(ascendingTimes, populations);
-	//averageDescendingTime = Average(descendingTimes, populations);
-	//averageRandomTime = Average(randomTimes, populations);
-
-	//cout << endl << "\n  Average time taken to sort the arrays: ";
-	//cout << endl << "  for ascending numbers = " << averageAscendingTime << "s";
-	//cout << endl << "  for descending numbers = " << averageDescendingTime << "s";
-	//cout << endl << "  for random numbers = " << averageRandomTime << "s\n\n\n";
-
-	//// RecursiveMergeSort
-	//cout << "---------- Recursive Merge Sort ----------\n";
-	//for (int i = 0; i < populations; i++)
-	//{
-	//	int* ascendingArray = AscendingArrayGenerator(n);
-	//	int* descendingArray = DescendingArrayGenerator(n);
-	//	int* randomArray = CopyArray(backupRandom, n);
-
-	//	start = clock();
-	//	RecursiveMergeSort(ascendingArray,0 ,n-1);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	ascendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	RecursiveMergeSort(descendingArray,0, n - 1);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	descendingTimes[i] = executionTime;
-
-	//	start = clock();
-	//	RecursiveMergeSort(randomArray,0 , n - 1);
-	//	end = clock();
-	//	executionTime = double(end - start) / CLOCKS_PER_SEC;
-	//	randomTimes[i] = executionTime;
-
-	//	cout << "\r[" << i + 1 << " of " << populations << " populations completed]" << flush;
-	//}
-
-	//averageAscendingTime = Average(ascendingTimes, populations);
-	//averageDescendingTime = Average(descendingTimes, populations);
-	//averageRandomTime = Average(randomTimes, populations);
-
-	//cout << endl << "\n  Average time taken to sort the arrays: ";
-	//cout << endl << "  for ascending numbers = " << averageAscendingTime << "s";
-	//cout << endl << "  for descending numbers = " << averageDescendingTime << "s";
-	//cout << endl << "  for random numbers = " << averageRandomTime << "s\n\n\n";
 
 	// Quick Sort
-	cout << "---------- Quick Sort ----------\n";
+	cout << "---------- SelectionSortB ----------\n";
 	for (int i = 0; i < populations; i++)
 	{
 		int* ascendingArray = AscendingArrayGenerator(n);
@@ -321,19 +66,19 @@ int main()
 		int* randomArray = CopyArray(backupRandom, n);
 
 		start = clock();
-		QuickSort(ascendingArray, 0, n - 1);
+		QuickSort(ascendingArray, 0, n-1);
 		end = clock();
 		executionTime = double(end - start) / CLOCKS_PER_SEC;
 		ascendingTimes[i] = executionTime;
 
 		start = clock();
-		//QuickSort(descendingArray, 0, n - 1);
+		QuickSort(descendingArray, 0, n - 1);
 		end = clock();
 		executionTime = double(end - start) / CLOCKS_PER_SEC;
 		descendingTimes[i] = executionTime;
 
 		start = clock();
-		//QuickSort(randomArray, 0, n - 1);
+		QuickSort(randomArray, 0, n - 1);
 		end = clock();
 		executionTime = double(end - start) / CLOCKS_PER_SEC;
 		randomTimes[i] = executionTime;
@@ -349,10 +94,6 @@ int main()
 	cout << endl << "  for ascending numbers = " << averageAscendingTime << "s";
 	cout << endl << "  for descending numbers = " << averageDescendingTime << "s";
 	cout << endl << "  for random numbers = " << averageRandomTime << "s\n\n\n";
-
-	ascending.close();
-	descending.close();
-	random.close();
 }
 
 void Display(int* A, int n)
@@ -381,6 +122,19 @@ void SelectionSort(int* A, int n)
 		for (int j = i + 1; j < n; j++)
 			if (A[j] < A[min]) min = j;
 		Swap(A[i], A[min]);
+	}
+}
+
+void SelectionSortB(int* A, int n)
+{
+	for (int i = 0; i < n - 1; i++)
+	{
+		int min = i;
+		for (int j = i + 1; j < n; j++)
+			if (A[j] < A[min]) min = j;
+		int temp = A[i];
+		A[i] = A[min];
+		A[min] = temp;
 	}
 }
 
@@ -493,9 +247,9 @@ int Partition(int* A, int low, int high)
 		while (A[i] <= pivot && i <= j) i++;
 		while (A[j] >= pivot && j >= i) j--;
 		if (j < i) break;
-		else Swap(A[i], A[j]); // ZAMIENIC NA ZMIENNE 
+		else Swap(A[i], A[j]);  
 	}
-	Swap(A[low], A[j]); // ZAMIENIC NA ZMIENNE 
+	Swap(A[low], A[j]); 
 	return j;
 }
 
@@ -503,9 +257,46 @@ void QuickSort(int* A, int low, int high)
 {
 	if (low < high)
 	{
-		int p = Partition(A, low, high);
-		QuickSort(A, low, p - 1);
-		QuickSort(A, p + 1, high);
+		int mid = Partition(A, low, high);
+		QuickSort(A, low, mid - 1);
+		QuickSort(A, mid + 1, high);
+	}
+}
+
+void OptimizedQuickSort(int* A, int low, int high)
+{
+	if (low < high)
+	{
+		int mid = Partition(A, low, high);
+		if (mid < (low + high) / 2)
+		{
+			QuickSort(A, low, mid - 1);
+		}
+		else
+		{
+			QuickSort(A, mid + 1, high);
+		}
+	}
+}
+
+void EducationalQuickSort(int* A, int low, int high)
+{
+	Start:
+	if (low < high)
+	{
+		int mid = Partition(A, low, high);
+		if (mid < (low + high) / 2)
+		{ 
+			QuickSort(A, low, mid - 1); 
+			low = mid + 1;
+			goto Start;              
+		}
+		else
+		{ 
+			QuickSort(A, mid + 1, high); 
+			high = mid - 1; 
+			goto Start;              
+		}
 	}
 }
 
