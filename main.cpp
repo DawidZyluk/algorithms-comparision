@@ -31,12 +31,12 @@ int main()
 	clock_t start, end, whole_start, whole_end;
 	double executionTime;
 
-	int n = 50000;
+	int n = 30000;
 	int populations = 1;
 	int* randomArray = RandomArrayGenerator(n);
 	int* backupRandom = CopyArray(randomArray, n);
 
-	/*do
+	do
 	{
 		cout << "Podaj liczbe elementow (minimum 100): "; cin >> n;
 	} while (n < 100);
@@ -44,7 +44,7 @@ int main()
 	do
 	{
 		cout << "Podaj liczbe populacji: "; cin >> populations;
-	} while (populations < 0 || populations > 100);*/
+	} while (populations < 0 || populations > 100);
 	
 	double* ascendingTimes = new double[populations];
 	double* descendingTimes = new double[populations];
@@ -388,7 +388,7 @@ void DisplayCurrentData(double asc, double desc, double rand)
 
 void DisplayCollectiveData(double data[8][3])
 {
-	cout.setf(ios::fixed, ios::floatfield);
+	//cout.setf(ios::fixed, ios::floatfield);
 	cout << endl;
 	cout << "\n                            --------------------------------------------------------";
 	cout << "\n                            | Ascending values | Descending values | Random values |";
