@@ -31,7 +31,7 @@ int main()
 	clock_t start, end, whole_start, whole_end;
 	double executionTime;
 
-	int n = 50000;
+	int n = 20000;
 	int populations = 1;
 	int* randomArray = RandomArrayGenerator(n);
 	int* backupRandom = CopyArray(randomArray, n);
@@ -59,7 +59,7 @@ int main()
 	{
 		int* ascendingArray = AscendingArrayGenerator(n);
 		int* descendingArray = DescendingArrayGenerator(n);
-		int* randomArray = CopyArray(backupRandom, n);
+		int* randomArray = RandomArrayGenerator(n);
 
 		start = clock();
 		SelectionSort(ascendingArray, n);
@@ -93,7 +93,7 @@ int main()
 	{
 		int* ascendingArray = AscendingArrayGenerator(n);
 		int* descendingArray = DescendingArrayGenerator(n);
-		int* randomArray = CopyArray(backupRandom, n);
+		int* randomArray = RandomArrayGenerator(n);
 
 		start = clock();
 		InsertionSort(ascendingArray, n);
@@ -127,7 +127,7 @@ int main()
 	{
 		int* ascendingArray = AscendingArrayGenerator(n);
 		int* descendingArray = DescendingArrayGenerator(n);
-		int* randomArray = CopyArray(backupRandom, n);
+		int* randomArray = RandomArrayGenerator(n);
 
 		start = clock();
 		BinaryInsertionSort(ascendingArray, n);
@@ -161,7 +161,7 @@ int main()
 	{
 		int* ascendingArray = AscendingArrayGenerator(n);
 		int* descendingArray = DescendingArrayGenerator(n);
-		int* randomArray = CopyArray(backupRandom, n);
+		int* randomArray = RandomArrayGenerator(n);
 
 		start = clock();
 		BubbleSort(ascendingArray, n);
@@ -195,7 +195,7 @@ int main()
 	{
 		int* ascendingArray = AscendingArrayGenerator(n);
 		int* descendingArray = DescendingArrayGenerator(n);
-		int* randomArray = CopyArray(backupRandom, n);
+		int* randomArray = RandomArrayGenerator(n);
 
 		start = clock();
 		OptimizedBubbleSort(ascendingArray, n);
@@ -229,7 +229,7 @@ int main()
 	{
 		int* ascendingArray = AscendingArrayGenerator(n);
 		int* descendingArray = DescendingArrayGenerator(n);
-		int* randomArray = CopyArray(backupRandom, n);
+		int* randomArray = RandomArrayGenerator(n);
 
 		start = clock();
 		IterativeMergeSort(ascendingArray, n);
@@ -263,22 +263,22 @@ int main()
 	{
 		int* ascendingArray = AscendingArrayGenerator(n);
 		int* descendingArray = DescendingArrayGenerator(n);
-		int* randomArray = CopyArray(backupRandom, n);
+		int* randomArray = RandomArrayGenerator(n);
 
 		start = clock();
-		RecursiveMergeSort(ascendingArray,0 ,n-1);
+		RecursiveMergeSort(ascendingArray, 0, n - 1);
 		end = clock();
 		executionTime = double(end - start) / CLOCKS_PER_SEC;
 		ascendingTimes[i] = executionTime;
 
 		start = clock();
-		RecursiveMergeSort(descendingArray,0, n - 1);
+		RecursiveMergeSort(descendingArray, 0, n - 1);
 		end = clock();
 		executionTime = double(end - start) / CLOCKS_PER_SEC;
 		descendingTimes[i] = executionTime;
 
 		start = clock();
-		RecursiveMergeSort(randomArray,0 , n - 1);
+		RecursiveMergeSort(randomArray, 0, n - 1);
 		end = clock();
 		executionTime = double(end - start) / CLOCKS_PER_SEC;
 		randomTimes[i] = executionTime;
@@ -299,7 +299,7 @@ int main()
 		{
 			int* ascendingArray = AscendingArrayGenerator(n);
 			int* descendingArray = DescendingArrayGenerator(n);
-			int* randomArray = CopyArray(backupRandom, n);
+			int* randomArray = RandomArrayGenerator(n);
 
 			start = clock();
 			OptimizedQuickSort(ascendingArray, 0, n - 1);
@@ -334,7 +334,7 @@ int main()
 		{
 			int* ascendingArray = AscendingArrayGenerator(n);
 			int* descendingArray = DescendingArrayGenerator(n);
-			int* randomArray = CopyArray(backupRandom, n);
+			int* randomArray = RandomArrayGenerator(n);
 
 			start = clock();
 			QuickSort(ascendingArray, 0, n - 1);
@@ -363,8 +363,9 @@ int main()
 	}
 	whole_end = clock();
 	int wholeExecutionTime = double(whole_end - whole_start) / CLOCKS_PER_SEC;
+	cout << "\n\n        Execution times of sorting algorithms for " << n << " elements";
 	DisplayCollectiveData(collectiveData);
-	cout << "\n\nWohole program execution time = " << wholeExecutionTime << "s\n\n";
+	cout << "\n\nWhole program execution time = " << wholeExecutionTime << "s\n\n";
 }
 
 void Display(int* A, int n)
@@ -388,22 +389,22 @@ void DisplayCurrentData(double asc, double desc, double rand)
 
 void DisplayCollectiveData(double data[8][3])
 {
-	cout.setf(ios::fixed, ios::floatfield);
+	//cout.setf(ios::fixed, ios::floatfield);
 	cout << endl;
 	cout << "\n                            --------------------------------------------------------";
 	cout << "\n                            | Ascending values | Descending values | Random values |";
 	cout << "\n  ----------------------------------------------------------------------------------";
-	cout << "\n  |      Selection Sort     | "; cout.width(12); cout << data[0][0]; cout.width(7); cout << " | "; cout.width(12); cout << data[0][1]; cout.width(8); cout << " | "; cout.width(9); cout << data[0][2]; cout.width(7); cout << " | ";
+	cout << "\n  |      Selection Sort     | "; cout.width(11); cout << data[0][0] << "s"; cout.width(7); cout << " | "; cout.width(11); cout << data[0][1] << "s"; cout.width(8); cout << " | "; cout.width(8); cout << data[0][2] << "s"; cout.width(7); cout << " | ";
 	cout << "\n  ----------------------------------------------------------------------------------";
-	cout << "\n  |      Insertion Sort     | "; cout.width(12); cout << data[1][0]; cout.width(7); cout << " | "; cout.width(12); cout << data[1][1]; cout.width(8); cout << " | "; cout.width(9); cout << data[1][2]; cout.width(7); cout << " | ";
+	cout << "\n  |      Insertion Sort     | "; cout.width(11); cout << data[1][0] << "s"; cout.width(7); cout << " | "; cout.width(11); cout << data[1][1] << "s"; cout.width(8); cout << " | "; cout.width(8); cout << data[1][2] << "s"; cout.width(7); cout << " | ";
 	cout << "\n  ----------------------------------------------------------------------------------";
-	cout << "\n  |  Binary Insertion Sort  | "; cout.width(12); cout << data[2][0]; cout.width(7); cout << " | "; cout.width(12); cout << data[2][1]; cout.width(8); cout << " | "; cout.width(9); cout << data[2][2]; cout.width(7); cout << " | ";
+	cout << "\n  |  Binary Insertion Sort  | "; cout.width(11); cout << data[2][0] << "s"; cout.width(7); cout << " | "; cout.width(11); cout << data[2][1] << "s"; cout.width(8); cout << " | "; cout.width(8); cout << data[2][2] << "s"; cout.width(7); cout << " | ";
 	cout << "\n  ----------------------------------------------------------------------------------";
-	cout << "\n  |       Bubble Sort       | "; cout.width(12); cout << data[3][0]; cout.width(7); cout << " | "; cout.width(12); cout << data[3][1]; cout.width(8); cout << " | "; cout.width(9); cout << data[3][2]; cout.width(7); cout << " | ";
+	cout << "\n  |       Bubble Sort       | "; cout.width(11); cout << data[3][0] << "s"; cout.width(7); cout << " | "; cout.width(11); cout << data[3][1] << "s"; cout.width(8); cout << " | "; cout.width(8); cout << data[3][2] << "s"; cout.width(7); cout << " | ";
 	cout << "\n  ----------------------------------------------------------------------------------";
-	cout << "\n  |  Optimized Bubble Sort  | "; cout.width(12); cout << data[4][0]; cout.width(7); cout << " | "; cout.width(12); cout << data[4][1]; cout.width(8); cout << " | "; cout.width(9); cout << data[4][2]; cout.width(7); cout << " | ";
+	cout << "\n  |  Optimized Bubble Sort  | "; cout.width(11); cout << data[4][0] << "s"; cout.width(7); cout << " | "; cout.width(11); cout << data[4][1] << "s"; cout.width(8); cout << " | "; cout.width(8); cout << data[4][2] << "s"; cout.width(7); cout << " | ";
 	cout << "\n  ----------------------------------------------------------------------------------";
-	cout << "\n  |  Iterative Merge Sort   | "; cout.width(12); cout << data[5][0]; cout.width(7); cout << " | "; cout.width(12); cout << data[5][1]; cout.width(8); cout << " | "; cout.width(9); cout << data[5][2]; cout.width(7); cout << " | ";
+	cout << "\n  |  Iterative Merge Sort   | "; cout.width(11); cout << data[5][0] << "s"; cout.width(7); cout << " | "; cout.width(11); cout << data[5][1] << "s"; cout.width(8); cout << " | "; cout.width(8); cout << data[5][2] << "s"; cout.width(7); cout << " | ";
 	cout << "\n  ----------------------------------------------------------------------------------";
 	cout << "\n  |  Recursive Merge Sort   | "; cout.width(12); cout << data[6][0]; cout.width(7); cout << " | "; cout.width(12); cout << data[6][1]; cout.width(8); cout << " | "; cout.width(9); cout << data[6][2]; cout.width(7); cout << " | ";
 	cout << "\n  ----------------------------------------------------------------------------------";
