@@ -533,6 +533,6 @@ double** Average(double** asc, double** desc, double** rand, int pop)
 		avg[i][1] = sumDesc / pop;
 		avg[i][2] = sumRand / pop;
 	}
-	return avg;
+	return avg; 
 }
 
