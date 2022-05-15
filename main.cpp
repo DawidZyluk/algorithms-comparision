@@ -1,6 +1,4 @@
 #include <iostream>
-#include <time.h>
-#include <fstream>
 
 using namespace std;
 
@@ -28,11 +26,11 @@ double Average(double* A, int n);
 
 int main()
 {	
-	clock_t start, end, whole_start, whole_end;
+	clock_t start, end, program_start, program_end;
 	double executionTime;
 
-	int n = 20000;
-	int populations = 1;
+	int n = 3000;
+	int populations = 100;
 	int* randomArray = RandomArrayGenerator(n);
 	int* backupRandom = CopyArray(randomArray, n);
 
@@ -51,7 +49,7 @@ int main()
 	double* randomTimes = new double[populations];
 	double collectiveData[8][3]{ 0 }; 
 
-	whole_start = clock();
+	program_start = clock();
 	// Selection Sort
 	cout << "\n------------- Selection Sort --------------\n";
 	cout << "     [0 of " << populations << " populations completed]";
@@ -81,6 +79,8 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
+	delete[] ascendingTimes, descendingTimes, randomTimes;
+
 	collectiveData[0][0] = Average(ascendingTimes, populations);
 	collectiveData[0][1] = Average(descendingTimes, populations);
 	collectiveData[0][2] = Average(randomTimes, populations);
@@ -115,6 +115,8 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
+	delete[] ascendingTimes, descendingTimes, randomTimes;
+
 	collectiveData[4][0] = Average(ascendingTimes, populations);
 	collectiveData[4][1] = Average(descendingTimes, populations);
 	collectiveData[4][2] = Average(randomTimes, populations);
@@ -149,6 +151,8 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
+	delete[] ascendingTimes, descendingTimes, randomTimes;
+
 	collectiveData[3][0] = Average(ascendingTimes, populations);
 	collectiveData[3][1] = Average(descendingTimes, populations);
 	collectiveData[3][2] = Average(randomTimes, populations);
@@ -183,6 +187,8 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
+	delete[] ascendingTimes, descendingTimes, randomTimes;
+
 	collectiveData[1][0] = Average(ascendingTimes, populations);
 	collectiveData[1][1] = Average(descendingTimes, populations);
 	collectiveData[1][2] = Average(randomTimes, populations);
@@ -217,6 +223,8 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
+	delete[] ascendingTimes, descendingTimes, randomTimes;
+
 	collectiveData[2][0] = Average(ascendingTimes, populations);
 	collectiveData[2][1] = Average(descendingTimes, populations);
 	collectiveData[2][2] = Average(randomTimes, populations);
@@ -251,6 +259,8 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
+	delete[] ascendingTimes, descendingTimes, randomTimes;
+
 	collectiveData[5][0] = Average(ascendingTimes, populations);
 	collectiveData[5][1] = Average(descendingTimes, populations);
 	collectiveData[5][2] = Average(randomTimes, populations);
@@ -285,6 +295,8 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
+	delete[] ascendingTimes, descendingTimes, randomTimes;
+
 	collectiveData[6][0] = Average(ascendingTimes, populations);
 	collectiveData[6][1] = Average(descendingTimes, populations);
 	collectiveData[6][2] = Average(randomTimes, populations);
@@ -321,6 +333,8 @@ int main()
 
 			cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 		}
+		delete[] ascendingTimes, descendingTimes, randomTimes;
+
 		collectiveData[7][0] = Average(ascendingTimes, populations);
 		collectiveData[7][1] = Average(descendingTimes, populations);
 		collectiveData[7][2] = Average(randomTimes, populations);
@@ -356,16 +370,19 @@ int main()
 
 			cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 		}
+		delete[] ascendingTimes, descendingTimes, randomTimes;
+
 		collectiveData[7][0] = Average(ascendingTimes, populations);
 		collectiveData[7][1] = Average(descendingTimes, populations);
 		collectiveData[7][2] = Average(randomTimes, populations);
 		//DisplayCurrentData(collectiveData[7][0], collectiveData[7][1], collectiveData[7][2]);
 	}
-	whole_end = clock();
-	int wholeExecutionTime = double(whole_end - whole_start) / CLOCKS_PER_SEC;
-	cout << "\n\n        Execution times of sorting algorithms for " << n << " elements";
+	program_end = clock();
+	int programExecutionTime = double(program_end - program_start) / CLOCKS_PER_SEC;
+	cout << "\n\n              Execution times of sorting algorithms for " << n << " elements and " << populations << " populations";
 	DisplayCollectiveData(collectiveData);
-	cout << "\n\nWhole program execution time = " << wholeExecutionTime << "s\n\n";
+	int minutes = (int)(programExecutionTime / 60);
+	cout << "\n\n   Program execution time = " << minutes <<"m " << programExecutionTime - (minutes*60) << "s\n\n";
 }
 
 void Display(int* A, int n)
@@ -406,9 +423,9 @@ void DisplayCollectiveData(double data[8][3])
 	cout << "\n  ----------------------------------------------------------------------------------";
 	cout << "\n  |  Iterative Merge Sort   | "; cout.width(11); cout << data[5][0] << "s"; cout.width(7); cout << " | "; cout.width(11); cout << data[5][1] << "s"; cout.width(8); cout << " | "; cout.width(8); cout << data[5][2] << "s"; cout.width(7); cout << " | ";
 	cout << "\n  ----------------------------------------------------------------------------------";
-	cout << "\n  |  Recursive Merge Sort   | "; cout.width(12); cout << data[6][0]; cout.width(7); cout << " | "; cout.width(12); cout << data[6][1]; cout.width(8); cout << " | "; cout.width(9); cout << data[6][2]; cout.width(7); cout << " | ";
+	cout << "\n  |  Recursive Merge Sort   | "; cout.width(11); cout << data[6][0] << "s"; cout.width(7); cout << " | "; cout.width(11); cout << data[6][1] << "s"; cout.width(8); cout << " | "; cout.width(8); cout << data[6][2] << "s"; cout.width(7); cout << " | ";
 	cout << "\n  ----------------------------------------------------------------------------------";
-	cout << "\n  |        Quick Sort       | "; cout.width(12); cout << data[7][0]; cout.width(7); cout << " | "; cout.width(12); cout << data[7][1]; cout.width(8); cout << " | "; cout.width(9); cout << data[7][2]; cout.width(7); cout << " | ";
+	cout << "\n  |        Quick Sort       | "; cout.width(11); cout << data[7][0] << "s"; cout.width(7); cout << " | "; cout.width(11); cout << data[7][1] << "s"; cout.width(8); cout << " | "; cout.width(8); cout << data[7][2] << "s"; cout.width(7); cout << " | ";
 	cout << "\n  ----------------------------------------------------------------------------------";
 }
 
@@ -617,5 +634,5 @@ double Average(double* A, int n)
 {
 	double sum = 0;
 	for (int i = 0; i < n; i++) sum += A[i];
-	return sum;
+	return sum / n;
 }
