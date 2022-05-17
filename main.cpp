@@ -34,7 +34,7 @@ int main()
 	int* randomArray = RandomArrayGenerator(n);
 	int* backupRandom = CopyArray(randomArray, n);
 
-	/*do
+	do
 	{
 		cout << "Podaj liczbe elementow (minimum 100): "; cin >> n;
 	} while (n < 100);
@@ -42,7 +42,7 @@ int main()
 	do
 	{
 		cout << "Podaj liczbe populacji: "; cin >> populations;
-	} while (populations < 0 || populations > 100);*/
+	} while (populations < 0 || populations > 100);
 	
 	double* ascendingTimes = new double[populations];
 	double* descendingTimes = new double[populations];
@@ -79,7 +79,6 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
-	delete[] ascendingTimes, descendingTimes, randomTimes;
 
 	collectiveData[0][0] = Average(ascendingTimes, populations);
 	collectiveData[0][1] = Average(descendingTimes, populations);
@@ -115,7 +114,6 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
-	delete[] ascendingTimes, descendingTimes, randomTimes;
 
 	collectiveData[4][0] = Average(ascendingTimes, populations);
 	collectiveData[4][1] = Average(descendingTimes, populations);
@@ -151,7 +149,6 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
-	delete[] ascendingTimes, descendingTimes, randomTimes;
 
 	collectiveData[3][0] = Average(ascendingTimes, populations);
 	collectiveData[3][1] = Average(descendingTimes, populations);
@@ -187,7 +184,6 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
-	delete[] ascendingTimes, descendingTimes, randomTimes;
 
 	collectiveData[1][0] = Average(ascendingTimes, populations);
 	collectiveData[1][1] = Average(descendingTimes, populations);
@@ -223,7 +219,6 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
-	delete[] ascendingTimes, descendingTimes, randomTimes;
 
 	collectiveData[2][0] = Average(ascendingTimes, populations);
 	collectiveData[2][1] = Average(descendingTimes, populations);
@@ -259,7 +254,6 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
-	delete[] ascendingTimes, descendingTimes, randomTimes;
 
 	collectiveData[5][0] = Average(ascendingTimes, populations);
 	collectiveData[5][1] = Average(descendingTimes, populations);
@@ -295,7 +289,6 @@ int main()
 
 		cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 	}
-	delete[] ascendingTimes, descendingTimes, randomTimes;
 
 	collectiveData[6][0] = Average(ascendingTimes, populations);
 	collectiveData[6][1] = Average(descendingTimes, populations);
@@ -333,7 +326,7 @@ int main()
 
 			cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 		}
-		delete[] ascendingTimes, descendingTimes, randomTimes;
+
 
 		collectiveData[7][0] = Average(ascendingTimes, populations);
 		collectiveData[7][1] = Average(descendingTimes, populations);
@@ -370,7 +363,7 @@ int main()
 
 			cout << "\r     [" << i + 1 << " of " << populations << " populations completed]" << flush;
 		}
-		delete[] ascendingTimes, descendingTimes, randomTimes;
+
 
 		collectiveData[7][0] = Average(ascendingTimes, populations);
 		collectiveData[7][1] = Average(descendingTimes, populations);
@@ -383,6 +376,7 @@ int main()
 	DisplayCollectiveData(collectiveData);
 	int minutes = (int)(programExecutionTime / 60);
 	cout << "\n\n   Program execution time = " << minutes <<"m " << programExecutionTime - (minutes*60) << "s\n\n";
+	delete[] ascendingTimes, descendingTimes, randomTimes, collectiveData;
 }
 
 void Display(int* A, int n)
