@@ -1,4 +1,3 @@
-# Algorithms_comparision
+# algorithms-comparision
 
-Project made during data structures and computational complexity course at my university. It's goal was to compare 
-selected sorting algorithms with diffirent input data types.
+This project was developed as part of the "Data Structures and Computational Complexity" course at [University Name]. Its main objective was to compare selected sorting algorithms using different types of input data. By evaluating the performance of these algorithms, the project aimed to gain insights into their efficiency and suitability for various scenarios. Through rigorous experimentation and analysis, the project sought to provide a comprehensive understanding of how these sorting algorithms perform under different input conditions.
